@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TikTok Live Stats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>TikTok Live Stats</h1>
+        <div id="stats">
+            <p>👁️ Views: <span id="views">0</span></p>
+            <p>❤️ Likes: <span id="likes">0</span></p>
+            <p>🔄 Shares: <span id="shares">0</span></p>
+        </div>
+
+        <h2>🎁 Gifts</h2>
+        <ul id="gifts"></ul>
+
+        <h2>💬 Comments</h2>
+        <div id="comments"></div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

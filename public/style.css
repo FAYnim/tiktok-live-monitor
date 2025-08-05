@@ -1,0 +1,104 @@
+/* General styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text */
+    margin: 0;
+    padding: 1rem;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+h1, h2 {
+    color: #ffffff;
+    border-bottom: 2px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+/* Stats section */
+#stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#stats p {
+    font-size: 1.2rem;
+    margin: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+#stats span {
+    font-weight: bold;
+    margin-left: 0.5rem;
+    color: #4CAF50; /* A bright color for stats */
+}
+
+/* Gifts section */
+#gifts {
+    list-style: none;
+    padding: 0;
+}
+
+#gifts li {
+    background-color: #1e1e1e;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    border-left: 4px solid #FFC107; /* Gift color */
+}
+
+/* Comments section */
+#comments {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.comment-card {
+    background-color: #1e1e1e;
+    padding: 1rem;
+    border-radius: 5px;
+    border-left: 4px solid #2196F3; /* Comment color */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.comment-card strong {
+    color: #90caf9; /* Lighter blue for user names */
+}
+
+.comment-card small {
+    color: #aaa;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    body {
+        padding: 0.5rem;
+    }
+
+    .container {
+        padding: 0.5rem;
+    }
+
+    #stats {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}
