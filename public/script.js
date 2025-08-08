@@ -9,7 +9,7 @@ socket.on("update", data => {
     giftList.innerHTML = "";
     data.gifts.slice(-5).forEach(g => {
         const li = document.createElement("li");
-        li.textContent = `${g.user} sent ${g.gift} x${g.repeat}`;
+        li.textContent = `${g.user_nickname} sent ${g.gift_name} x${g.gift_amount}`;
         giftList.appendChild(li);
     });
 
