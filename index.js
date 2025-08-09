@@ -7,10 +7,10 @@ const { TikTokLiveConnection } = require("tiktok-live-connector");
 
 // --- Konfigurasi (Bagian untuk diedit) ---
 // Ganti dengan username TikTok yang ingin Anda pantau
-const TIKTOK_USERNAME = "planetarium_irvans";
+const TIKTOK_USERNAME = "andyleeman";
 const PORT = 3000; // Port untuk server
 const MAX_COMMENTS = 10; // Jumlah maksimal komentar yang ditampilkan
-const EXTERNAL_API_URL = "https://faydev.my.id/hosted/tiktok-api/api"; // URL API eksternal
+const EXTERNAL_API_URL = "https://faydev.my.id/hosted/tiktok-api/api.php"; // URL API eksternal
 
 // --- Inisialisasi Server ---
 const app = express();
