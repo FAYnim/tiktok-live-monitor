@@ -1,104 +1,93 @@
-/* General styles */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #121212; /* Dark background */
-    color: #e0e0e0; /* Light text */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f2f5;
+    color: #1c1e21;
     margin: 0;
-    padding: 1rem;
-    line-height: 1.6;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
-}
-
-h1, h2 {
-    color: #ffffff;
-    border-bottom: 2px solid #333;
-    padding-bottom: 0.5rem;
-}
-
-/* Stats section */
-#stats {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    background-color: #1e1e1e;
+    background-color: #fff;
+    padding: 20px;
     border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.input-group {
+    display: flex;
+    margin-bottom: 12px;
+}
+
+#username {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 6px 0 0 6px;
+    font-size: 16px;
+}
+
+#connect-btn, #disconnect-btn {
+    padding: 10px 15px;
+    border: none;
+    background-color: #1877f2;
+    color: white;
+    border-radius: 0 6px 6px 0;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#disconnect-btn {
+    border-radius: 6px;
+    background-color: #e02c4f;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.error {
+    color: #fa383e;
+    text-align: center;
+    min-height: 20px;
 }
 
 #stats p {
-    font-size: 1.2rem;
-    margin: 0.5rem;
-    display: flex;
-    align-items: center;
+    margin: 8px 0;
+    font-size: 18px;
 }
 
-#stats span {
-    font-weight: bold;
-    margin-left: 0.5rem;
-    color: #4CAF50; /* A bright color for stats */
+h2 {
+    border-bottom: 1px solid #dddfe2;
+    padding-bottom: 5px;
+    margin-top: 20px;
 }
 
-/* Gifts section */
-#gifts {
+#comments, #gifts {
     list-style: none;
     padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    padding: 10px;
 }
 
-#gifts li {
-    background-color: #1e1e1e;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: 5px;
-    border-left: 4px solid #FFC107; /* Gift color */
+#comments div, #gifts li {
+    padding: 8px;
+    border-bottom: 1px solid #f0f2f5;
 }
 
-/* Comments section */
-#comments {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.comment-card {
-    background-color: #1e1e1e;
-    padding: 1rem;
-    border-radius: 5px;
-    border-left: 4px solid #2196F3; /* Comment color */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-
-.comment-card strong {
-    color: #90caf9; /* Lighter blue for user names */
-}
-
-.comment-card small {
-    color: #aaa;
-    font-size: 0.8rem;
-    margin-left: 0.5rem;
-}
-
-/* Responsive design */
-@media (max-width: 600px) {
-    body {
-        padding: 0.5rem;
-    }
-
-    .container {
-        padding: 0.5rem;
-    }
-
-    #stats {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
+#comments div:last-child, #gifts li:last-child {
+    border-bottom: none;
 }

@@ -6,8 +6,18 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>TikTok Live Stats</h1>
+    <div class="container" id="connect-container">
+        <h1>TikTok Live Scraper</h1>
+        <p>Enter a TikTok username to connect and see their live stats.</p>
+        <div class="input-group">
+            <input type="text" id="username" placeholder="Enter TikTok Username">
+            <button id="connect-btn">Connect</button>
+        </div>
+        <p id="error-message" class="error"></p>
+    </div>
+
+    <div class="container" id="stats-container" style="display: none;">
+        <h1>Live Stats for <span id="tiktok-user"></span></h1>
         <div id="stats">
             <p>👁️ Views: <span id="views">0</span></p>
             <p>❤️ Likes: <span id="likes">0</span></p>
@@ -19,6 +29,8 @@
 
         <h2>💬 Comments</h2>
         <div id="comments"></div>
+        
+        <button id="disconnect-btn">Disconnect</button>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
