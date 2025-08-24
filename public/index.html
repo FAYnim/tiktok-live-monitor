@@ -1,37 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>TikTok Live Stats</title>
+    <title>TikTok Live Scraper</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container" id="connect-container">
-        <h1>TikTok Live Scraper</h1>
-        <p>Enter a TikTok username to connect and see their live stats.</p>
-        <div class="input-group">
-            <input type="text" id="username" placeholder="Enter TikTok Username">
-            <button id="connect-btn">Connect</button>
-        </div>
-        <p id="error-message" class="error"></p>
-    </div>
-
-    <div class="container" id="stats-container" style="display: none;">
-        <h1>Live Stats for <span id="tiktok-user"></span></h1>
-        <div id="stats">
-            <p>👁️ Views: <span id="views">0</span></p>
-            <p>❤️ Likes: <span id="likes">0</span></p>
-            <p>🔄 Shares: <span id="shares">0</span></p>
+    <main>
+        <div class="container" id="connect-container">
+            <h1 class="title">TikTok Live Scraper</h1>
+            <p class="subtitle">Enter a TikTok username to connect.</p>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="@username">
+                <button id="connect-btn">CONNECT</button>
+            </div>
+            <p id="error-message" class="error"></p>
         </div>
 
-        <h2>🎁 Gifts</h2>
-        <ul id="gifts"></ul>
+        <div class="container" id="stats-container" style="display: none;">
+            <div class="header">
+                <h1>Live Stats: <span id="tiktok-user"></span></h1>
+                <button id="disconnect-btn">DISCONNECT</button>
+            </div>
 
-        <h2>💬 Comments</h2>
-        <div id="comments"></div>
-        
-        <button id="disconnect-btn">Disconnect</button>
-    </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-value" id="views">0</span>
+                    <span class="stat-label">Views</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="likes">0</span>
+                    <span class="stat-label">Likes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="shares">0</span>
+                    <span class="stat-label">Shares</span>
+                </div>
+            </div>
+
+            <div class="data-section">
+                <h2>🎁 Gifts</h2>
+                <ul id="gifts" class="data-list"></ul>
+            </div>
+
+            <div class="data-section">
+                <h2>💬 Comments</h2>
+                <div id="comments" class="data-list"></div>
+            </div>
+        </div>
+    </main>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>
