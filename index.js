@@ -5,12 +5,11 @@ const axios = require("axios");
 const { Server } = require("socket.io");
 const { TikTokLiveConnection } = require("tiktok-live-connector");
 
-// --- Konfigurasi (Bagian untuk diedit) ---
-// Ganti dengan username TikTok yang ingin Anda pantau
-const TIKTOK_USERNAME = "itshoopss";
-const PORT = 3000; // Port untuk server
-const MAX_COMMENTS = 10; // Jumlah maksimal komentar yang ditampilkan
-const EXTERNAL_API_URL = "https://faydev.my.id/hosted/tiktok-api/api";
+// --- Konfigurasi ---
+const tiktok_username = "itshoopss";
+const port = 3000;
+const max_comments = 10;
+const external_api_url = "https://faydev.my.id/hosted/tiktok-api/api";
 
 // --- Inisialisasi Server ---
 const app = express();
@@ -19,7 +18,6 @@ const io = new Server(server);
 app.use(express.static("public"));
 
 // --- State Management ---
-// Variabel untuk menyimpan semua data dari live stream
 let stats = {
     views: 0,
     likes: 0,
@@ -29,21 +27,14 @@ let stats = {
 };
 
 // --- Fungsi Helper ---
-
-/**
- * Mengirim data statistik terbaru ke semua klien (browser) yang terhubung.
- * @param {object} updatedStats - Objek 'stats' yang sudah diperbarui.
- */
+// Mengirim data statistik ke client
 function sendUpdateToClient(updatedStats) {
     io.emit("update", updatedStats);
 }
 
-/**
- * Mengirim data spesifik (seperti gift) ke server eksternal.
- * @param {object} data - Data yang akan dikirim.
- */
+// Mengirim data gift ke server eksternal
 function sendDataToServer(data) {
-    axios.post(EXTERNAL_API_URL, data, {
+    axios.post(external_api_url, data, {
         headers: { "Content-Type": "application/json" }
     })
     .then(res => {
@@ -55,40 +46,38 @@ function sendDataToServer(data) {
 }
 
 // --- Logika Utama TikTok Live ---
+const tiktokLive = new TikTokLiveConnection(tiktok_username);
 
-// Membuat koneksi baru ke TikTok Live
-const tiktokLive = new TikTokLiveConnection(TIKTOK_USERNAME);
-
-// Mencoba menghubungkan ke room live
+// Menghubungkan ke room live
 tiktokLive.connect().catch(err => {
     console.error("Gagal terhubung ke TikTok Live:", err);
 });
 
-// Event listener: dipicu saat koneksi berhasil
+// Listener saat koneksi berhasil
 tiktokLive.on('connected', () => {
-    console.log(`Terhubung ke live room @${TIKTOK_USERNAME}`);
+    console.log(`Terhubung ke live room @${tiktok_username}`);
 });
 
-// Event listener: dipicu saat ada update jumlah penonton
+// Listener untuk jumlah penonton
 tiktokLive.on("roomUser", (data) => {
     stats.views = data.viewerCount || 0;
     console.log(data);
     sendUpdateToClient(stats);
 });
 
-// Event listener: dipicu saat ada yang memberi 'like'
+// Listener untuk like
 tiktokLive.on("like", (data) => {
     stats.likes += data.likeCount || 1;
     sendUpdateToClient(stats);
 });
 
-// Event listener: dipicu saat ada yang 'share' live
+// Listener untuk share
 tiktokLive.on("share", (data) => {
-    stats.shares += 1; // Setiap event 'share' dihitung sebagai 1
+    stats.shares += 1;
     sendUpdateToClient(stats);
 });
 
-// Event listener: dipicu saat ada yang memberi 'gift'
+// Listener untuk gift
 tiktokLive.on("gift", (data) => {
     const giftData = {
         user_id: data.user.userId,
@@ -99,10 +88,10 @@ tiktokLive.on("gift", (data) => {
     };
     stats.gifts.push(giftData);
     sendUpdateToClient(stats);
-    sendDataToServer(giftData); // Mengirim data gift ke API eksternal
+    sendDataToServer(giftData);
 });
 
-// Event listener: dipicu saat ada komentar baru
+// Listener untuk komentar
 tiktokLive.on("chat", (data) => {
     const newComment = {
         user: data.user.nickname,
@@ -111,21 +100,21 @@ tiktokLive.on("chat", (data) => {
     };
     stats.comments.push(newComment);
 
-    // Jaga agar array komentar tidak terlalu panjang
-    if (stats.comments.length > MAX_COMMENTS) {
+    // Batasi jumlah komentar
+    if (stats.comments.length > max_comments) {
         stats.comments.shift();
     }
-    
+
     sendUpdateToClient(stats);
 });
 
-// Event listener: dipicu saat koneksi terputus
+// Listener saat koneksi terputus
 tiktokLive.on('disconnected', () => {
     console.log('Koneksi terputus dari live room.');
 });
 
 
 // --- Menjalankan Server ---
-server.listen(PORT, () => {
-    console.log(`Server berjalan di http://localhost:${PORT}`);
+server.listen(port, () => {
+    console.log(`Server berjalan di http://localhost:${port}`);
 });
