@@ -9,17 +9,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const usernameInput = document.getElementById('username');
     const errorMessage = document.getElementById('error-message');
     const tiktokUserSpan = document.getElementById('tiktok-user');
-    
+    const btnText = connectBtn.querySelector('.btn-text');
+    const loader = connectBtn.querySelector('.loader');
+
     const viewsSpan = document.getElementById('views');
     const likesSpan = document.getElementById('likes');
     const sharesSpan = document.getElementById('shares');
     const giftsList = document.getElementById('gifts');
     const commentsDiv = document.getElementById('comments');
 
+    // --- UI Functions ---
+    const showLoader = () => {
+        connectBtn.disabled = true;
+        connectBtn.classList.add('loading');
+        btnText.style.display = 'none';
+        loader.style.display = 'block';
+    };
+
+    const hideLoader = () => {
+        connectBtn.disabled = false;
+        connectBtn.classList.remove('loading');
+        btnText.style.display = 'block';
+        loader.style.display = 'none';
+    };
+
     // --- Event Listeners ---
     connectBtn.addEventListener('click', () => {
         const username = usernameInput.value.trim();
         if (username) {
+            showLoader();
             socket.emit('set_username', username);
             errorMessage.textContent = '';
         } else {
@@ -39,16 +57,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Socket Event Handlers ---
     socket.on('connect_success', (msg) => {
+        hideLoader();
         connectContainer.style.display = 'none';
         statsContainer.style.display = 'block';
-        tiktokUserSpan.textContent = msg.split('@')[1];
+        const username = msg.split('@')[1] || '';
+        tiktokUserSpan.textContent = `@${username}`;
     });
 
     socket.on('connect_error', (msg) => {
+        hideLoader();
         errorMessage.textContent = msg;
     });
 
     socket.on('tiktok_disconnected', () => {
+        hideLoader();
         statsContainer.style.display = 'none';
         connectContainer.style.display = 'block';
         usernameInput.value = '';
