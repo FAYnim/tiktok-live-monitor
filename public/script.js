@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         connectContainer.style.display = 'none';
         statsContainer.style.display = 'block';
         const username = msg.split('@')[1] || '';
-        tiktokUserSpan.textContent = `@${username}`;
+        tiktokUserSpan.value = `@${username}`;
     });
 
     socket.on('connect_error', (msg) => {
