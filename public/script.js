@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewsSpan = document.getElementById('views');
     const likesSpan = document.getElementById('likes');
     const sharesSpan = document.getElementById('shares');
+    const totalUsersSpan = document.getElementById('total_users');
     const giftsList = document.getElementById('gifts');
     const commentsDiv = document.getElementById('comments');
 
@@ -79,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     socket.on('update', (stats) => {
         viewsSpan.textContent = stats.views.toLocaleString();
+        totalUsersSpan.textContent = stats.total_users.toLocaleString();
         likesSpan.textContent = stats.likes.toLocaleString();
         sharesSpan.textContent = stats.shares.toLocaleString();
 

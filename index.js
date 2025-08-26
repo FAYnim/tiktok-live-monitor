@@ -22,6 +22,7 @@ let isTiktokConnected = false;
 const resetStats = () => {
     stats = {
         views: 0,
+        total_users: 0,
         likes: 0,
         shares: 0,
         gifts: [],
@@ -50,6 +51,9 @@ function setupTikTokListeners(liveConnection, username, socket) {
 
     liveConnection.on("roomUser", (data) => {
         stats.views = data.viewerCount || 0;
+        if (data.totalUser) {
+            stats.total_users = data.totalUser;
+        }
         sendUpdateToClient(stats);
     });
 
