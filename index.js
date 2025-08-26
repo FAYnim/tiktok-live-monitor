@@ -1,14 +1,12 @@
 // --- Import Library ---
 const express = require("express");
 const http = require("http");
-const axios = require("axios");
 const { Server } = require("socket.io");
 const { TikTokLiveConnection } = require("tiktok-live-connector");
 
 // --- Konfigurasi ---
 const port = 3000;
 const max_comments = 10;
-const external_api_url = "https://faydev.my.id/hosted/tiktok-api/api";
 
 // --- Inisialisasi Server ---
 const app = express();
@@ -35,18 +33,6 @@ resetStats();
 // --- Fungsi Helper ---
 function sendUpdateToClient(updatedStats) {
     io.emit("update", updatedStats);
-}
-
-function sendDataToServer(data) {
-    axios.post(external_api_url, data, {
-        headers: { "Content-Type": "application/json" }
-    })
-    .then(res => {
-        console.log("Data gift berhasil dikirim ke server eksternal");
-    })
-    .catch(err => {
-        console.error("Gagal mengirim data ke server eksternal:", err.message);
-    });
 }
 
 function setupTikTokListeners(liveConnection, username, socket) {
@@ -87,7 +73,6 @@ function setupTikTokListeners(liveConnection, username, socket) {
         };
         stats.gifts.push(giftData);
         sendUpdateToClient(stats);
-        sendDataToServer(giftData);
     });
 
     liveConnection.on("chat", (data) => {
