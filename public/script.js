@@ -1,6 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     const socket = io();
 
+    // --- Helper Function ---
+    function formatNumber(num) {
+        if (num >= 1000000) {
+            return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+        }
+        if (num >= 1000) {
+            return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+        }
+        return num;
+    }
+
     // --- Element Selectors ---
     const connectContainer = document.getElementById('connect-container');
     const statsContainer = document.getElementById('stats-container');
@@ -79,10 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     socket.on('update', (stats) => {
-        viewsSpan.textContent = stats.views.toLocaleString();
-        totalUsersSpan.textContent = stats.total_users.toLocaleString();
-        likesSpan.textContent = stats.likes.toLocaleString();
-        sharesSpan.textContent = stats.shares.toLocaleString();
+        viewsSpan.textContent = formatNumber(stats.views);
+        totalUsersSpan.textContent = formatNumber(stats.total_users);
+        likesSpan.textContent = formatNumber(stats.likes);
+        sharesSpan.textContent = formatNumber(stats.shares);
 
         // Update comments
         commentsDiv.innerHTML = '';

@@ -154,7 +154,7 @@ main {
 
 .stat-value {
     font-family: var(--font-title);
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     color: #fff;
 }
@@ -237,4 +237,6 @@ main {
 #connect-btn.loading {
     cursor: not-allowed;
     background-color: #00b4bd;
+}
+nd-color: #00b4bd;
 }
